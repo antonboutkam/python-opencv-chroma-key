@@ -6,16 +6,18 @@ def center_cube(frame):
     h, w = frame.shape[:2]
     cx, cy = w // 2, h // 2
 
-    blokje = frame[cy - 10:cy + 10, cx - 10:cx + 10]
+    blokje = frame[cy - 40:cy + 40, cx - 40:cx + 40]
     return blokje
 
 
 def avg_color_hsv(frame):
     frame_hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    h, s, v = cv2.split(frame_hsv)
+    mean_h = int(np.mean(h))
+    mean_s = int(np.mean(s))
+    mean_v = int(np.mean(v))
 
-    # Zoek de gemiddelde kleur in BGR
-    average_color = np.mean(frame_hsv, axis=(0, 1))  # Averages over height and width
-    return average_color
+    return mean_h, mean_s, mean_v
 
 
 def draw_text_bubble(frame, text, position, font_scale=1, thickness=2):
